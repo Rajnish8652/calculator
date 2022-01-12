@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+{% block content %}
+
+<div class="container p-3 my-3 border bg-light">
+  <div class="row">
+    <div class="col-md-12">
+      <h4 > <b> SubmissionDrawing Details </b>  
+        <a type="button"  class="btn btn-success float-right" href="{{ url_for('index')}}" >Add New Record </a>
+        <a type="button"  class="btn btn-info float-right" style='margin-right:16px' href="{{ url_for('export')}}" > Export to Excel </a> 
+         </h4>
+
+        <div>
+          <table class="table table-hover table-sm">
+            <tr class="text-white-50 bg-dark">
+              <th>Project ID</th>
+              <th>Requisition No</th>
+              <th>NOC from Directorate of Estate</th>
+              <th>Principle Approval File Number</th>
+              <th>NOC for height from Airport</th>
+              <th>NOC from LnDO</th>
+              <th>NOC fromNMA</th>
+              <th>Approval From Forest</th>
+              <th>Approval From Heritage</th>
+              <th>Approval From CVC</th>
+              <th>NOC from DMRC</th>
+              <th>NOC from GNCTD</th>
+              <th>NOC from MCD</th>
+             <!-- 
+              <th>NOC from DTP</th>
+              <th>Approval ffrom UTTIPECFN</th>
+              <th>Approval from Fire Officer</th>
+              <th>Approval from Controller of Explosives</th>
+              <th>Approval from chief of Factories</th>
+              <th>Approval from DUAC</th>
+              <th>Clearance from MEF</th>
+              <th>NOC from DCP</th>
+              <th>Advise from NS Advisory Committee</th>
+              <th>Approval from NDMC</th>
+              <th>Building Plan</th>
+              <th>Lanscape Plan</th>
+              <th>Paring Plan</th>
+              <th>Watr Supply Sewage</th>
+              <th>Layut Plan wherever</th>
+              <th>Othr Misc.Drawing</th>
+              -->
+                
+                <th> </th>
+            </tr>
+
+            {% for row in detailsdata %}
+            <tr>
+              <td> {{row.projectid}} </td>
+              <td> {{row.requisitionno}} </td>
+              <td> {{row.nocfromdirectorateofestate}} </td>
+              <td> {{row.principleapprovalfilenumber}} </td>
+              <td> {{row.nocforheightfromairport}} </td>
+              <td> {{row.nocfromlndo}} </td>
+              <td> {{row.nocfromnma}} </td>
+              <td> {{row.approvalfromforest}} </td>
+              <td> {{row.approvalfromheritage}} </td>
+              <td> {{row.approvalfromcvc}} </td>
+              <td> {{row.nocfromdmrc}} </td>
+              <td> {{row.nocfromgnctd}} </td>
+              <td> {{row.nocfrommcd}} </td>
+              <!--
+              <td> {{row.nocfromdtp}} </td>
+              <td> {{row.approvalffromuttipecfn}} </td>
+              <td> {{row.approvalfromfireofficer}} </td>
+              <td> {{row.approvalfromcontrollerofexplosives}} </td>
+              <td> {{row.approvalfromchiefoffactories}} </td>
+              <td> {{row.approvalfromduac}} </td>
+              <td> {{row.clearancefrommef}} </td>
+              <td> {{row.nocfromdcp}} </td>
+              <td> {{row.advisefromnsadvisorycommittee}} </td>
+              <td> {{row.approvalfromndmc}} </td>
+              <td> {{row.buildingplan}} </td>
+              <td> {{row.landscapeplan}} </td>
+              <td> {{row.parkingplan}} </td>
+              <td> {{row.watersupplysewage}} </td>
+              <td> {{row.layoutplanwherever}} </td>
+              <td> {{row.othermiscdrawing}} </td>
+              -->
+              <td>
+                    <a href="/review/{{row.projectid}}" class="btn btn-outline-secondary btn-xs badge-pill" style="width: 60px; font-size: smaller;" >Review</a>
+                    <!--<a href="/delete/{{row.id}}" class="btn btn-outline-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a> -->
+                </td>
+            </tr>
+            {% endfor %}
+            </table>
+
+          </div>
+          
+      </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

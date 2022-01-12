@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+{% from "_render_field.html" import render_field %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <form method="POST"  action="{{ url_for('index')}}" enctype="multipart/form-data">
+          
+          {{ form.csrf_token }}
+          {{ form.hidden_tag() }}
+
+          <div class="row ">
+              <div class="col ">{{ render_field(form.projectid)}} </div>
+              <div class="col">{{ render_field(form.requisitionno)}} </div>
+          </div>  
+          
+          <div class="row">
+              <div class="col">{{ render_field(form.nocfromdirectorateofestate)}} </div>
+              <div class="col">{{ render_field(form.uploadnocfromdirectorate)}} </div>
+          </div>  
+          
+          
+          <div class="row">
+            <div class="col">{{ render_field(form.principleapprovalfilenumber)}} </div>
+            <div class="col">{{ render_field(form.uploadprincipleapproval)}} </div>
+        </div>  
+        
+          
+        <div class="row">
+          <div class="col">{{ render_field(form.nocforheightfromairport)}} </div>
+          <div class="col">{{ render_field(form.uploadnocforheightfromairport)}} </div>
+      </div>  
+      
+          
+          
+          <div class="row">
+            <div class="col">{{ render_field(form.nocfromlndo)}} </div>
+            <div class="col">{{ render_field(form.uploadnocfromlndo)}} </div>
+        </div>  
+        
+          
+          
+          <div class="row">
+            <div class="col">{{ render_field(form.nocfromnma)}} </div>
+            <div class="col">{{ render_field(form.uploadnocfromnma)}} </div>
+        </div>  
+        
+          
+          
+          <div class="row">
+            <div class="col">{{ render_field(form.approvalfromforest)}} </div>
+            <div class="col">{{ render_field(form.uploadapprovalfromforest)}} </div>
+        </div>  
+        
+          
+          
+          <div class="row">
+            <div class="col">{{ render_field(form.approvalfromheritage)}} </div>
+            <div class="col">{{ render_field(form.uploadapprovalfromheritage)}} </div>
+        </div>  
+        
+          
+          
+          <div class="row">
+            <div class="col">{{ render_field(form.approvalfromcvc)}} </div>
+            <div class="col">{{ render_field(form.uploadapprovalfromcvc)}} </div>
+        </div>  
+        
+          
+          
+          <div class="row">
+            <div class="col">{{ render_field(form.nocfromdmrc)}} </div>
+            <div class="col">{{ render_field(form.uploadnocfromdmrc)}} </div>
+        </div>  
+        
+          
+          
+          <div class="row">
+            <div class="col">{{ render_field(form.nocfromgnctd)}} </div>
+            <div class="col">{{ render_field(form.uploadnocfromgnctd)}} </div>
+        </div>  
+        
+       
+         
+         
+          <div class="row">
+            <div class="col">{{ render_field(form.nocfrommcd)}} </div>
+            <div class="col">{{ render_field(form.uploadnocfrommcd)}} </div>
+        </div>  
+        
+         
+         
+          <div class="row">
+            <div class="col">{{ render_field(form.nocfromdtp)}} </div>
+            <div class="col">{{ render_field(form.uploadnocfromdtp)}} </div>
+        </div>  
+        
+         
+         
+          <div class="row">
+            <div class="col">{{ render_field(form.approvalffromuttipecfn)}} </div>
+            <div class="col">{{ render_field(form.uploadapprovalffromuttipecfn)}} </div>
+        </div>  
+         
+          <div class="row">
+            <div class="col">{{ render_field(form.approvalfromfireofficer)}} </div>
+            <div class="col">{{ render_field(form.uploadapprovalfromfireofficer)}} </div>
+        </div>  
+          
+          <div class="row">
+            <div class="col">{{ render_field(form.approvalfromcontrollerofexplosives)}} </div>
+            <div class="col">{{ render_field(form.uploadapprovalfromcontrollerofexplosives)}} </div>
+        </div>  
+         
+          <div class="row">
+            <div class="col">{{ render_field(form.approvalfromchiefoffactories)}} </div>
+            <div class="col">{{ render_field(form.uploadapprovalfromfactories)}} </div>
+        </div>  
+          
+          <div class="row">
+            <div class="col">{{ render_field(form.approvalfromduac)}} </div>
+            <div class="col">{{ render_field(form.uploadapprovalfromduac)}} </div>
+        </div>  
+          
+          <div class="row">
+            <div class="col">{{ render_field(form.clearancefrommef)}} </div>
+            <div class="col">{{ render_field(form.uploadclearancefrommef)}} </div>
+        </div>  
+        
+          
+          <div class="row">
+            <div class="col">{{ render_field(form.nocfromdcp)}} </div>
+            <div class="col">{{ render_field(form.uploadnocfromdcp)}} </div>
+        </div>  
+        
+          <div class="row">
+            <div class="col">{{ render_field(form.advisefromnsadvisorycommittee)}} </div>
+            <div class="col">{{ render_field(form.uploadadvisefromnsadvisorycommittee)}} </div>
+        </div>  
+        
+          <div class="row">
+            <div class="col">{{ render_field(form.approvalfromndmc)}} </div>
+            <div class="col">{{ render_field(form.uploadapprovalfromndmc)}} </div>
+        </div>  
+        
+          <div class="row">
+            <div class="col">{{ render_field(form.buildingplan)}} </div>
+            <div class="col">{{ render_field(form.uploadbuildingplan)}} </div>
+        </div>  
+        
+          
+          <div class="row">
+            <div class="col">{{ render_field(form.landscapeplan)}} </div>
+            <div class="col">{{ render_field(form.uploadlandscapeplan)}} </div>
+        </div>  
+        
+          
+          <div class="row">
+            <div class="col">{{ render_field(form.parkingplan)}} </div>
+            <div class="col">{{ render_field(form.uploadparkingplan)}} </div>
+        </div>  
+        <div class="row">
+            <div class="col">{{ render_field(form.watersupplysewage)}} </div>
+            <div class="col">{{ render_field(form.uploadwatersupply)}} </div>
+        </div>  
+        
+          <div class="row">
+            <div class="col">{{ render_field(form.layoutplanwherever)}} </div>
+            <div class="col">{{ render_field(form.uploadlayoutplan)}} </div>
+        </div>  
+        
+          <div class="row">
+            <div class="col">{{ render_field(form.othermiscdrawing)}} </div>
+            <div class="col">{{ render_field(form.uploadothermisc)}} </div>
+            <!--<p>
+            <div class="col">{{ render_field(form.uploadothermisc)}} </div>
+            {% if session.uploadothermisc %}
+                <a href="{{ url_for('downloadfile',filename=session.uploadothermisc) }}" > {{session.uploadothermisc}} </a>
+            {% endif %}
+            </p> -->
+        </div>  
+          
+        </div> 
+          </div>
+
+    </div>
+        
+         <hr>   
+         <div class="form-group">
+          <div class="col col-lg-offset-2">
+              <input type="submit" class="btn btn-primary" value="Submit">
+              <a type="button"  class="btn btn-outline-secondary  float-right" href="{{ url_for('main')}}" > << Back to Main </a>
+          </div>
+        </div>
+      </form>
+
+      </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+/*
+
+let projectid_text = document.getElementById('projectid');
+projectid_text.onblur = function() {
+  let pno = projectid_text.value;
+  fetch('moudata/' + pno).then(function(response){
+      if (response.ok){
+          response.json().then(function(item) {
+            document.getElementById('responsiblerole').value=item.responsiblerole;
+            document.getElementById('responsibleresource').value = item.responsibleresource;
+            document.getElementById('moufilenumber').value = item.moufilenumber;
+            document.getElementById('mouapprovedby').value = item.mouapprovedby;
+            document.getElementById('mouapprovedbyempid').value = item.mouapprovedbyempid;
+            document.getElementById('moudate').value = item.moudate;
+            //document.getElementByName('mouuploadcopy').value = item.mouuploadcopy;
+            //document.getElementById('filedesc').innerHTML = item.mouuploadcopy;
+            
+            //let fileurl= "{{ url_for('downloadfile',filename="+filenm+") }}";
+            
+            document.getElementById('filedesc').innerHTML ='<a href="{{ url_for("downloadfile") }}">' + item.mouuploadcopy + '</a>' ;
+
+          });
+       }
+    });
+ }
+
+let fi = document.getElementById('mouuploadcopy');
+fi.onchange = function() {
+  //alert('test');
+   if (fi.files.length > 0) {
+      for (const i = 0; i <= fi.files.length - 1; i++) {
+        const fsize = fi.files.item(i).size;
+        const file = Math.round((fsize / 1024));
+                
+     // Restriction of 2MB = 2*1024=2048
+     // The size of the file.
+        if (file >= 2048) {
+          //alert("File too Big, please select a file less than 2mb");
+          document.getElementById('filedesc').innerHTML = 'File size is > 2MB (' + file +' kb )';
+          fi.value='';
+        } else if (file < 10) {
+          //alert("File too small, please select a file greater than 10 kB");
+           document.getElementById('filedesc').innerHTML = 'File size is < 10 KB ('+ file +' kb )';
+           fi.value='';
+        } else {
+            document.getElementById('filedesc').innerHTML = 'File size ('+ file +' kb)';
+           }
+          }
+        }
+    }
+
+*/
+</script>
+
+{% endblock %}

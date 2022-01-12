@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+{% from "_render_field.html" import render_field %}
+
+{% block title %}
+    WLCM Project Details form
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <!--<p><h2 class="display-6 text-primary">WLCM Project Details Form</h2></p> -->
+
+        <form method="POST" action="{{ url_for('index')}}">
+          <div class="row">
+           {{ form.csrf_token }}
+           {{ form.hidden_tag() }}
+              <div class="col">
+                {{ render_field(form.projectno,placeholder="Project No" )}}
+                {{ render_field(form.projectname )}}
+                {{ render_field(form.description )}}
+                {{ render_field(form.category )}}
+                {{ render_field(form.basisfund )}}
+                {{ render_field(form.projectmode)}}
+                {{ render_field(form.areastate )}}
+                {{ render_field(form.location )}}
+                <div class="row">
+                  <div class="col">
+                    {{ render_field(form.actualstart )}}
+                    {{ render_field(form.forecaststart )}}
+                  </div>
+                  <div class="col">
+                    {{ render_field(form.actualfinish )}}
+                    {{ render_field(form.forecastfinish )}}
+                  </div>
+              </div>
+              </div>
+              <div class="col">
+                <div class="row">
+                  <div class="col">    
+                    {{ render_field(form.plannedStart )}}
+                  </div> 
+                  <div class="col"> 
+                      {{ render_field(form.plannedfinish )}}
+                  </div>
+                </div>      
+              {{ render_field(form.responsibleresource )}}
+              {{ render_field(form.responsiblerole )}}
+              {{ render_field(form.responsibleorganizationunit )}}
+              {{ render_field(form.division1 )}}
+              {{ render_field(form.division2 )}}
+              {{ render_field(form.division3 )}}
+              {{ render_field(form.division4 )}}
+              {{ render_field(form.division5 )}}
+            </div>
+          </div>
+
+         <hr>
+          <div class="form-group">
+            <div class="col col-lg-offset-2">
+                <input type="submit" class="btn btn-primary" value="Submit">
+                <a type="button"  class="btn btn-outline-secondary  float-right" href="{{ url_for('main')}}" > << Back to Main </a>
+            </div>
+          </div>
+
+      </form>
+     
+      <!--<p><a href="{{ url_for('export') }}">Generate Excel Report</a></p> -->
+
+      </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+let projectno_text = document.getElementById('projectno');
+ 
+projectno_text.onblur = function() {
+      let pno = projectno_text.value;
+      //alert(pno);
+      fetch('projectdata/' + pno).then(function(response){
+        response.json().then(function(item) {
+        //alert(item.projectname);
+        document.getElementById('projectname').value=item.projectname;
+        document.getElementById('description').value = item.description;
+        //document.getElementById('category').selectedValue = item.category
+        //document.getElementById('basisfund').selectedIndex = item.basisfund
+        //document.getElementById('projectmode').selectedIndex = item.projectmode
+        document.getElementById('areastate').value = item.areastate;
+        document.getElementById('location').value = item.location;
+
+        
+        document.getElementById('actualstart').value = item.actualstart.substring(0,10);
+        document.getElementById('actualfinish').value = item.actualfinish.substring(0,10);
+        document.getElementById('forecaststart').value = item.forecaststart.substring(0,10);
+        document.getElementById('forecastfinish').value = item.forecastfinish.substring(0,10);
+        document.getElementById('plannedStart').value = item.plannedStart.substring(0,10);
+        document.getElementById('plannedfinish').value = item.plannedfinish.substring(0,10);
+        document.getElementById('responsibleresource').value = item.responsibleresource;
+        document.getElementById('responsiblerole').value = item.responsiblerole;
+        document.getElementById('responsibleorganizationunit').value = item.responsibleorganizationunit;
+        document.getElementById('division1').value = item.division1;
+        document.getElementById('division2').value = item.division2;
+        document.getElementById('division3').value = item.division3;
+        document.getElementById('division4').value = item.division4;
+        document.getElementById('division5').value = item.division5;
+        
+        const textToFind = item.category;
+        const category = document.getElementById('category');
+        category.selectedIndex = [...category.options].findIndex (option => option.text === textToFind);
+
+        const basisfund = document.getElementById('basisfund');
+        basisfund.selectedIndex = [...basisfund.options].findIndex (option => option.text === item.basisfund);
+
+        const projectmode = document.getElementById('projectmode');
+        projectmode.selectedIndex = [...projectmode.options].findIndex (option => option.text === item.projectmode);
+
+        });
+        });
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+{% block content %}
+
+<div class="container  p-3 my-3 border bg-light">
+  <div class="row">
+    <div class="col">
+      <h4 > <b> Team Details </b>  
+        <a type="button"  class="btn btn-success float-right" href="{{ url_for('index')}}" >Add New Record </a>
+        <a type="button"  class="btn btn-info float-right" style='margin-right:16px' href="{{ url_for('export')}}" > Export to Excel </a> 
+      </h4>
+
+        <div>
+          <table class="table table-hover table-sm">
+            <tr class="text-white-50 bg-dark">
+                <th>Project No</th>
+                <th>Project Name</th>
+                <th>Description</th>
+
+                <th>Category</th>
+                <th>Basic Fund</th>
+                <th>Project Mode</th>
+
+                <th>Area / State</th>
+                <th>Location</th>
+                
+                <th>Responsible Role</th>
+                <th>Responsible Organisation</th>
+                
+                <th> </th>
+            </tr>
+
+            {% for row in detailsdata %}
+            <tr>
+                <td>{{row.projectno}}</td>
+                <td>{{row.projectname}}</td>
+                <td>{{row.description}}</td>
+
+                <td>{{row.category}}</td>
+                <td>{{row.basisfund}}</td>
+                <td>{{row.projectmode}}</td>
+                
+                <td>{{row.areastate}}</td>
+                <td>{{row.location}}</td>
+                
+                <td>{{row.responsiblerole}}</td>
+                <td>{{row.responsibleorganizationunit}}</td>
+                
+                <td>
+                    <a href="/review/{{row.projectno}}" class="btn btn-outline-warning btn-xs badge-pill" style="width: 60px; font-size: smaller;" >Review</a>
+                    <!--<a href="/delete/{{row.id}}" class="btn btn-outline-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a> -->
+                </td>
+            </tr>
+            {% endfor %}
+            </table>
+
+          </div>
+          
+      </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

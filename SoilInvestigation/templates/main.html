@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h4 > <b> Soil Investigation Details </b>  
+        <a type="button"  class="btn btn-success float-right" href="{{ url_for('index')}}" >Add New Record </a>
+        <a type="button"  class="btn btn-info float-right" style='margin-right:16px' href="{{ url_for('export')}}" > Export to Excel </a> 
+      </h4>
+
+        <div>
+          <table class="table table-hover table-sm">
+            <tr class="text-white-50 bg-dark">
+                <th>Project ID</th>
+                <th>Responsible Role</th>
+                <th>Authority Approved Soil Investigation</th>
+                <th>Name of Agency</th>
+
+                <th>Name of Work</th>
+                <th>Work Order or Agreement Number</th>
+                <th>Work Order or Tender Amount</th>
+
+                <th>Stipulated Date of Completion</th>
+                <th>Actual Date of Completion</th>
+                <th>Site Survey Plan Submitted by Agency</th>
+                <th>Type of Test</th>
+                <th>Type of Soil</th>
+
+                <th> </th>
+            </tr>
+
+            {% for row in detailsdata %}
+            <tr>
+                <td>{{row.projectid}}</td>
+                <td>{{row.responsiblerole}}</td>
+                <td>{{row.authorityapprovedsoilinvestigation}}</td>
+                <td>{{row.nameofagency}}</td>
+
+                <td>{{row.nameofwork}}</td>
+                <td>{{row.workorderoragreementnumber}}</td>
+                <td>{{row.workorderortenderamount}}</td>
+
+                <td>{{row.stipulateddateofcompletion.strftime('%d-%m-%Y')}}</td>
+                <td>{{row.actualdateofcompletion.strftime('%d-%m-%Y')}}</td>
+                <td>{{row.sitesurveyplansubmittedbyagency}}</td>
+                
+                <td>{{row.typeoftest}}</td>
+                <td>{{row.typeofsoil}}</td>
+               
+                <td>
+                    <a href="/review/{{row.projectid}}" class="btn btn-outline-warning btn-xs badge-pill" style="width: 60px; font-size: smaller;" >Review</a>
+                    <!--<a href="/delete/{{row.id}}" class="btn btn-outline-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a> -->
+                </td>
+            </tr>
+            {% endfor %}
+            </table>
+
+          </div>
+          
+      </div>
+    </div>
+</div>
+
+{% endblock %}

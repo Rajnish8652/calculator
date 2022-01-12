@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block content %}
+
+<div class="container p-3 my-3 border bg-light">
+  <div class="row">
+    <div class="col-md-12">
+      <h4 > <b> Open PO Details </b>  
+        <a type="button"  class="btn btn-success float-right" href="{{ url_for('index')}}" >Add New Record </a>
+        <a type="button"  class="btn btn-info float-right" style='margin-right:16px' href="{{ url_for('export')}}" > Export </a> 
+         </h4>
+
+        <div>
+          <table class="table table-hover table-sm">
+            <tr class="text-white-50 bg-dark">
+              <th>Purchasing Document Type</th>
+              <th>Company Code</th>
+              <th>Purchasing Document Category</th>
+              <th>Document Date</th>
+              <th>Vendor's Account Number</th>
+              <th>Terms of Payment</th>
+              <th>Purchase Organization</th>
+              <!--
+              <th>Purchasing Group</th>
+              <th>Start of Validity Period</th>
+              <th>End of Validity Period</th>
+              <th>Plant</th>
+              <th>Storage Location</th>
+              -->
+              <th>Item in Purchasing Document</th>
+              <th>Material Number</th>
+              
+              
+              <th>Purchase Order Quantity</th>
+              <th>Net Price</th>
+              <!--
+              <th>Tax on Sales/Purchases Code</th>
+              <th>Account Assignment Category</th>
+              <th>WBS Element</th>
+              <th>Item Delivery Date</th> 
+              -->
+               <th> </th>
+            </tr>
+
+            {% for row in detailsdata %}
+            <tr>
+              <td> {{row.purchasingdocumenttype}} </td>
+              <td> {{row.companycode}} </td>
+              <td> {{row.purchasingdocumentcategory}} </td>
+              <td> {{row.documentdate.strftime('%d-%m-%Y')}} </td>
+              <td> {{row.vendorsaccountnumber}} </td>
+              <td> {{row.termsofpayment}} </td>
+              <td> {{row.purchaseorganization}} </td>
+              <!--
+              <td> {{row.purchasinggroup}} </td>
+              <td> {{row.startofvalidityperiod.strftime('%d-%m-%Y')}} </td>
+              <td> {{row.endofvalidityperiod.strftime('%d-%m-%Y')}} </td>
+               <td> {{row.plant}} </td>
+               <td> {{row.storagelocation}} </td>
+              -->
+              <td> {{row.iteminpurchasingdocument}} </td>
+              <td> {{row.materialnumber}} </td>
+             
+              
+              <td> {{row.purchaseorderquantity}} </td>
+              <td> {{row.netprice}} </td>
+              <!--
+              <td> {{row.taxonsalespurchasescode}} </td>
+              <td> {{row.accountassignmentcategory}} </td>
+              <td> {{row.wbselement}} </td>
+              <td> {{row.itemdeliverydate.strftime('%d-%m-%Y')}} </td>
+                -->
+                <td>
+                    <a href="/review/{{row.companycode}}" class="btn btn-outline-secondary btn-xs badge-pill" style="width: 60px; font-size: smaller;" >Review</a>
+                    <!--<a href="/delete/{{row.id}}" class="btn btn-outline-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a> -->
+                </td>
+            </tr>
+            {% endfor %}
+            </table>
+
+          </div>
+          
+      </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

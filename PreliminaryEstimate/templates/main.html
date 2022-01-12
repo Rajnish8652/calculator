@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block title %}
+  Preliminary Estimate Form
+{% endblock %}
+
+{% block content %}
+
+<div class="container p-3 my-3 border bg-light">
+  <div class="row">
+    <div class="col-md-12">
+      <h4 > <b> Preliminary Estimate Details </b>  
+        <a type="button"  class="btn btn-success float-right" href="{{ url_for('index')}}" >Add New Record </a>
+        <a type="button"  class="btn btn-info float-right" style='margin-right:16px' href="{{ url_for('export')}}" > Export </a> 
+     </h4>
+
+        <div>
+          <table class="table table-hover table-sm">
+            <tr class="text-white-50 bg-dark">
+                <th>Project ID</th>
+                <th>Responsible Role</th>
+                <th>Authority Submitted Estimate</th>
+                <th>Authority Submitted Estimate Emp ID</th>
+
+                <th>Estimate Type</th>
+                <th>PE Amount</th>
+                <th>PE Civil Amount</th>
+                <th>PE Elect Amount</th>
+                <th>PE Hort Amount</th>
+
+                <th>Stipulated Completion Date</th>
+                <th>Completion Date</th>
+
+                <th>PE Civil Act Date</th>
+                <th>PE Elect Act Date</th>
+                <th>PE Hort Act Date</th>
+                <!--<th>PE Remarks</th> -->
+
+                <th> </th>
+            </tr>
+
+            {% for row in detailsdata %}
+            <tr>
+                <td>{{row.projectid}}</td>
+                <td>{{row.responsiblerole}}</td>
+                <td>{{row.authoritysubmittedestimate}}</td>
+                <td>{{row.authoritysubmittedestimateempid}}</td>
+
+                <td>{{row.estimatetype}}</td>
+                <td>{{row.peamount}}</td>
+                <td>{{row.pecivilamount}}</td>
+                <td>{{row.peelectamount}}</td>
+                <td>{{row.pehortamount}}</td>
+
+                <td>{{row.stipulatedcompletiondate.strftime('%d-%m-%Y')}}</td>
+                <td>{{row.completiondate.strftime('%d-%m-%Y')}}</td>
+
+                <td>{{row.pecivilactdate.strftime('%d-%m-%Y')}}</td>
+                <td>{{row.peelectactdate.strftime('%d-%m-%Y')}}</td>
+                <td>{{row.pehortactdate.strftime('%d-%m-%Y')}}</td>
+                <!-- <td>{{row.peremarks}}</td> -->
+
+                <td>
+                    <a href="/review/{{row.projectid}}" class="btn btn-outline-secondary btn-xs badge-pill" style="width: 60px; font-size: smaller;" >Review</a>
+                    <!--<a href="/delete/{{row.id}}" class="btn btn-outline-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a> -->
+                </td>
+            </tr>
+            {% endfor %}
+            </table>
+
+          </div>
+          
+      </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

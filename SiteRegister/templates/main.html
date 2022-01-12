@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+{% block content %}
+
+<div class="container p-3 my-3 border bg-light">
+  <div class="row">
+    <div class="col-md-12">
+      <h4 > <b> Site Register Details </b>  
+        <a type="button"  class="btn btn-success float-right" href="{{ url_for('index')}}" >Add New Record </a>
+        <a type="button"  class="btn btn-info float-right" style='margin-right:16px' href="{{ url_for('export')}}" > Export </a> 
+         </h4>
+
+        <div>
+          <table class="table table-hover table-sm">
+            <tr class="text-white-50 bg-dark">
+              <th>Client</th>
+              <th>Material Document</th>
+              <th>Material Doc Year</th>
+              <th>Material Doc.Item</th>
+              <th>Movement type</th>
+              <th>Material</th>
+              <th>Plant</th>
+              <th>Storage Location</th>
+              <th>Batch</th>
+              <th>Special Stock</th>
+              <th>Supplier</th>
+              
+              <th>Base Unit of Measure</th>
+              <!--
+              <th>Storage Location</th>
+              <th>Date Of Exp</th>
+              <th>Qty in Unit of Entry</th>
+              <th>Text</th>
+              <th>Goods Recipient</th>
+              <th>Posting Date</th>
+              <th>Entry Date</th>
+              <th>Projects ID</th>
+              <th>Projects Name </th>
+              <th>WBS ID</th>
+              <th>WBS Description </th>
+              <th>Plant</th>
+              <th>Matarial</th>
+              <th>Batch</th>
+              <th>Date Of Exp</th>
+              <th>Supplier</th> 
+              -->
+               <th> </th>
+            </tr>
+
+            {% for row in detailsdata %}
+            <tr>
+              <td> {{row.client}} </td>
+              <td> {{row.materialdocument}} </td>
+              <td> {{row.materialdocyear.strftime('%d-%m-%Y')}} </td>
+              <td> {{row.materialdocitem}} </td>
+              <td> {{row.movementtype}} </td>
+              <td> {{row.material}} </td>
+              <td> {{row.plant}} </td>
+              <td> {{row.storagelocation}} </td>
+              <td> {{row.batch}} </td>
+              <td> {{row.specialstock}} </td>
+              <td> {{row.supplier}} </td>
+             
+              <td> {{row.baseunitofmeasure}} </td>
+               <!--
+              <td> {{row.storagelocation1}} </td>
+              <td> {{row.dateofexp.strftime('%d-%m-%Y')}} </td>
+              <td> {{row.qtyinunitofentry}} </td>
+              <td> {{row.text}} </td>
+              <td> {{row.goodsrecipient}} </td>
+              <td> {{row.postingdate.strftime('%d-%m-%Y')}} </td>
+              <td> {{row.entrydate.strftime('%d-%m-%Y')}} </td>
+              <td> {{row.projectsid}} </td>
+              <td> {{row.projectsname}} </td>
+              <td> {{row.wbsid}} </td>
+              <td> {{row.wbsdescription}} </td>
+              <td> {{row.plant1}} </td>
+              <td> {{row.matarial1}} </td>
+              <td> {{row.batch1}} </td>
+              <td> {{row.dateofexp1.strftime('%d-%m-%Y')}} </td>
+              <td> {{row.supplier1}} </td>
+              -->    
+                <td>
+                    <a href="/review/{{row.businesspartnergrouping}}" class="btn btn-outline-secondary btn-xs badge-pill" style="width: 60px; font-size: smaller;" >Review</a>
+                    <!--<a href="/delete/{{row.id}}" class="btn btn-outline-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a> -->
+                </td>
+            </tr>
+            {% endfor %}
+            </table>
+
+          </div>
+          
+      </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

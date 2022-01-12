@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+{% from "_render_field.html" import render_field %}
+
+{% block content %}
+
+<div class="container  p-3 my-3 border bg-light">
+    <div class="row">
+      <div class="col">
+        <form method="POST" action="{{ url_for('index')}}">
+          <div class="row">
+            {{ form.csrf_token }}
+            {{ form.hidden_tag() }}
+            <div class="col">
+              {{ render_field(form.projectno,placeholder="Project No" )}}
+              {{ render_field(form.projectname )}}
+              {{ render_field(form.description )}}
+              {{ render_field(form.category )}}
+              {{ render_field(form.basisfund )}}
+            </div>
+            <div class="col">
+              {{ render_field(form.areastate )}}
+              {{ render_field(form.location )}}
+              {{ render_field(form.responsiblerole )}}
+              {{ render_field(form.responsibleorganizationunit )}}
+              {{ render_field(form.teamuser )}}
+            
+            </div>
+          </div>  
+
+          <div>
+            <table> 
+                <th>Roll Name</th>
+                <th>Responsible Resource</th> 
+                <th>Employee ID</th> 
+                <th></th> 
+               <tr>
+                <td><input type="text" id="roll_name" ></td> 
+                <td><input type="text" id="resp_res" ></td>
+                <td><input type="text" id="emp_id" ></td>
+                <td><input id="submit" onclick="insertRow()" type="button" value=" Add " style="border: 2px solid black; border-color: black; "></td> 
+             </tr>
+         </table>
+         
+         <table id="myTable1"> 
+          {% for row in rolesdata %}
+            <tr>
+              <td><input type="text" name="item_1[]"  id="rollname" value= {{row.rolename}}  readonly /></td> 
+              <td><input type="text" name="item_2[]"  id="respres"  value={{row.responsibleresource}}  readonly /></td>
+              <td><input type="text" name="item_3[]" id="empid"  value={{row.employeeid}} readonly /></td> 
+              <td><input id="submit" onclick="deleteRecFunction(this)" type="button" value=" X " style="border: 2px solid Red;" ></td>
+            </tr>  
+          {% endfor %}  
+         </table>  
+          
+         </div>
+         
+         <hr>   
+         
+         <div class="form-group">
+          <div class="col col-lg-offset-2">
+              <input type="submit" class="btn btn-primary" value="Submit">
+              <a type="button"  class="btn btn-outline-secondary  float-right" href="{{ url_for('main')}}" > << Back to Main </a>
+          </div>
+        </div>
+
+
+      </form>
+
+      </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+let projectno_text = document.getElementById('projectno');
+projectno_text.onblur = function() {
+      let pno = projectno_text.value;
+      //alert(pno);
+     
+  fetch('teamdata/' + pno).then(function(response){
+        if (response.ok){
+          response.json().then(function(item) {
+        document.getElementById('projectname').value=item.projectname;
+        document.getElementById('description').value = item.description
+        document.getElementById('areastate').value = item.areastate
+        document.getElementById('location').value = item.location
+        document.getElementById('responsiblerole').value = item.responsiblerole
+        document.getElementById('responsibleorganizationunit').value = item.responsibleorganizationunit
+        document.getElementById('teamuser').value = item.teamuser
+        
+        const textToFind = item.category;
+        const category = document.getElementById('category');
+        category.selectedIndex = [...category.options].findIndex (option => option.text === textToFind);
+
+        const basisfund = document.getElementById('basisfund');
+        basisfund.selectedIndex = [...basisfund.options].findIndex (option => option.text === item.basisfund);
+        
+        item.roledetail.forEach((item) => {
+            //console.log(item.rolename + ' ' + item.responsibleresource + ' ' + item.employeeid );
+            var newrow=$('<tr><td><input type="text" name="item_1[]"  id="rollname" value='+ item.rolename +'  readonly /></td> <td><input type="text" name="item_2[]"  id="respres"  value='+ item.responsibleresource +'  readonly /></td><td><input type="text" name="item_3[]" id="empid"  value='+ item.employeeid +'  readonly /></td>' + 
+              '<td><input id="submit" onclick="deleteRecFunction(this)" type="button" value=" X " style="border: 2px solid Red;" ></td></tr>');
+            $('#myTable1').append(newrow);
+        });
+    });
+   }
+  });
+ }
+    
+function insertRow(){
+  let item1 =document.getElementById('roll_name').value; 
+  let item2 =document.getElementById('resp_res').value;
+  let item3 =document.getElementById('emp_id').value;
+  
+  if ( item1 !="" || item2 !="" || item3 !=""  ){
+    var newrow=$('<tr><td><input type="text" name="item_1[]"  id="rollname" value='+ item1 +'  readonly /></td> <td><input type="text" name="item_2[]"  id="respres"  value='+ item2 +'  readonly /></td><td><input type="text" name="item_3[]" id="empid"  value='+ item3 +'  readonly /></td>' + 
+              '<td><input id="submit" onclick="deleteRecFunction(this)" type="button" value=" X " style="border: 2px solid Red;" ></td></tr>');
+    $('#myTable1').append(newrow);
+
+    document.getElementById('roll_name').value="";
+    document.getElementById('resp_res').value="";
+    document.getElementById('emp_id').value=""; 
+      
+  }
+  
+}
+
+function deleteRecFunction(ctl) {
+    $(ctl).parents("tr").remove();
+}
+  
+</script>
+
+{% endblock %}

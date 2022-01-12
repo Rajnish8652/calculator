@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+{% from "_render_field.html" import render_field %}
+
+{% block content %}
+
+<div class="container  p-3 my-3 border bg-light">
+    <div class="row">
+      <div class="col">
+        <form method="POST" action="{{ url_for('index')}}">
+            {{ form.csrf_token }}
+            {{ form.hidden_tag() }}
+          
+            {{ render_field(form.projectid)}}
+            {{ render_field(form.nameofcontractor)}}
+            {{ render_field(form.contractwonumber)}}
+                
+            <div class="form-group">
+              <table> 
+                <th>Statutory Compliance <br>Description</th>
+                <th>Reference <br>No</th> 
+                <th>Valid <br>Date</th>
+                <th>Name of Authority <br>Approved</th>
+                <th>Employee Id of <br>Authority</th> 
+                <th></th> 
+                <tr>
+                  <td><input type="text" id="stcompliance_desc"  size="30" ></td> 
+                  <td><input type="text" id="reference_no" size="12" onkeypress="return onlyNumberKey(event)",maxlength="8" ></td>
+                  <td><input type="date" id="valid_dt" ></td>
+                  <td><input type="text" id="authority_name" maxlength="20" size="24" ></td>
+                  <td><input type="text" id="authority_empid" maxlength="24" size="24" ></td>
+                  <td><input id="submit" onclick="insertRow()" type="button" value=" Add " style="border: 2px solid black; border-color: black; "></td> 
+                </tr>
+            </table>
+            
+            
+            <table id="myTable1"> 
+            
+              {% for row in compliancedata %}
+                <tr>
+                  <td><input type="text" name="item_1[]"  id="stcompliancedesc" value= {{row.statutorycompliancedesc}}  readonly /></td> 
+                  <td><input type="text" name="item_2[]"  id="referenceno"  value={{row.referenceno}}  readonly /></td>
+                  <td><input type="text" name="item_3[]" id="validdt"  value={{row.validdate}} readonly /></td> 
+                  <td><input type="text" name="item_4[]" id="authorityname"  value={{row.nameofauthorityapproved}} readonly /></td> 
+                  <td><input type="text" name="item_5[]" id="authorityempid"  value={{row.employeeidofauthority}} readonly /></td> 
+
+                  <td><input id="submit" onclick="deleteRecFunction(this)" type="button" value=" X " style="border: 2px solid Red;" ></td>
+                </tr>  
+              {% endfor %}  
+             
+            </table>  
+            
+
+            </div>
+            
+            <hr>   
+            
+            <div class="form-group">
+              <div class="col col-lg-offset-2">
+                  <input type="submit" class="btn btn-primary" value="Submit">
+                  <a type="button"  class="btn btn-outline-secondary  float-right" href="{{ url_for('main')}}" > << Back to Main </a>
+              </div>
+            </div>
+
+
+        </form>
+     </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+/*
+let projectno_text = document.getElementById('projectid');
+projectno_text.onblur = function() {
+      let pno = projectno_text.value;
+      //alert(pno);
+     
+  fetch('teamdata/' + pno).then(function(response){
+        if (response.ok){
+          response.json().then(function(item) {
+        document.getElementById('projectname').value=item.projectname;
+        document.getElementById('description').value = item.description
+        document.getElementById('areastate').value = item.areastate
+        document.getElementById('location').value = item.location
+        document.getElementById('responsiblerole').value = item.responsiblerole
+        document.getElementById('responsibleorganizationunit').value = item.responsibleorganizationunit
+        document.getElementById('teamuser').value = item.teamuser
+        
+        const textToFind = item.category;
+        const category = document.getElementById('category');
+        category.selectedIndex = [...category.options].findIndex (option => option.text === textToFind);
+
+        const basisfund = document.getElementById('basisfund');
+        basisfund.selectedIndex = [...basisfund.options].findIndex (option => option.text === item.basisfund);
+        
+        item.roledetail.forEach((item) => {
+            //console.log(item.rolename + ' ' + item.responsibleresource + ' ' + item.employeeid );
+            var newrow=$('<tr><td><input type="text" name="item_1[]"  id="rollname" value='+ item.rolename +'  readonly /></td> <td><input type="text" name="item_2[]"  id="respres"  value='+ item.responsibleresource +'  readonly /></td><td><input type="text" name="item_3[]" id="empid"  value='+ item.employeeid +'  readonly /></td>' + 
+              '<td><input id="submit" onclick="deleteRecFunction(this)" type="button" value=" X " style="border: 2px solid Red;" ></td></tr>');
+            $('#myTable1').append(newrow);
+        });
+    });
+   }
+  });
+ }
+*/
+ 
+function insertRow(){
+  let item1 =document.getElementById('stcompliance_desc').value; 
+  let item2 =document.getElementById('reference_no').value;
+  let item3 =document.getElementById('valid_dt').value;
+  let item4 =document.getElementById('authority_name').value;
+  let item5 =document.getElementById('authority_empid').value;
+  
+  if ( item1 !="" || item2 !="" || item3 !="" || item4 !="" || item5 !=""  ){
+    var newrow=$('<tr>'+
+                '<td><input type="text" name="item_1[]"  id="stcompliancedesc" value='+ item1 +' size="30" readonly = "readonly" /></td> '+ 
+                '<td><input type="text" name="item_2[]"  id="referenceno"  value='+ item2 +'  size="12" readonly = "readonly" /></td> '+
+                '<td><input type="text" name="item_3[]" id="validdt"  value='+ item3 +' size="18" readonly = "readonly" /></td> '+
+                '<td><input type="text" name="item_4[]" id="authorityname"  value='+ item4 +'  size="24" readonly = "readonly" /></td> '+
+                '<td><input type="text" name="item_5[]" id="authorityempid"  value='+ item5 +'  size="24" readonly = "readonly" /></td> '+
+                '<td><input id="submit" onclick="deleteRecFunction(this)" type="button" value=" X " style="border: 2px solid Red;" ></td></tr>');
+    $('#myTable1').append(newrow);
+
+    document.getElementById('stcompliance_desc').value="";
+    document.getElementById('reference_no').value="";
+    document.getElementById('valid_dt').value=""; 
+    document.getElementById('authority_name').value=""; 
+    document.getElementById('authority_empid').value=""; 
+  }
+}
+
+function deleteRecFunction(ctl) {
+    $(ctl).parents("tr").remove();
+}
+
+function onlyNumberKey(evt) {
+          // Only ASCII character in that range allowed
+          var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+          if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+              return false;
+          return true;
+      }
+
+function IsAlphaNumeric(e) {
+         var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+         var ret = ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || keyCode == 32 || (keyCode >= 97 && keyCode <= 122) || (specialKeys.indexOf(e.keyCode) != -1 && e.charCode != e.keyCode));
+         //document.getElementById("error").style.display = ret ? "none" : "inline";
+         return ret;
+     }        
+  
+</script>
+
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+{% from "_render_field.html" import render_field %}
+
+{% block content %}
+
+<div class="container  p-3 my-3 border bg-light">
+    <div class="row">
+      <div class="col-md-12">
+       <!-- <p><h4 class="display-6 text-primary">WLCM -  Site Survey Data Migration Form</h4></p> -->
+
+        <form method="POST"  action="{{ url_for('index')}}" enctype="multipart/form-data">
+          <div class="row">
+            {{ form.csrf_token }}
+            {{ form.hidden_tag() }}
+           <div class="col">
+          {{ render_field(form.projectid )}}
+          {{ render_field(form.responsiblerole )}}
+          {{ render_field(form.filenumber )}}
+          {{ render_field(form.authorityapprovedsitesurvey )}}
+          {{ render_field(form.authorityapprovedsitesurveyempid)}}
+          {{ render_field(form.nameofagency )}}
+           </div>
+           <div class="col"> 
+          {{ render_field(form.nameofwork )}}
+          {{ render_field(form.workorderoragreementnumber,title="Upto Eight Digit Number",onkeypress="return onlyNumberKey(event)",maxlength="8")}}
+          {{ render_field(form.workorderortenderamount,title="Upto Eight Digit Number",pattern="\d{1,8}")}}
+          {{ render_field(form.sitesurveyreportsubmittedbyagency )}}
+          {{ render_field(form.stipulateddateofcompletion )}}
+          {{ render_field(form.actualdateofcompletion )}}
+           </div>
+        </div>   
+              
+         <hr>   
+          <input type="submit" class="btn btn-primary" value="Submit">
+          <a type="button"  class="btn btn-outline-secondary  float-right" href="{{ url_for('main')}}" > << Back to Main </a>
+
+          
+      </form>
+
+      </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+let projectid_text = document.getElementById('projectid');
+projectid_text.onblur = function() {
+  let pno = projectid_text.value;
+  fetch('getdatabyid/' + pno).then(function(response){
+      if (response.ok){
+          response.json().then(function(result) {
+
+            result.forEach((item) => { // alert(item.length);
+
+            document.getElementById('responsiblerole').value=item.responsiblerole;
+            document.getElementById('filenumber').value=item.filenumber;
+            document.getElementById('authorityapprovedsitesurvey').value = item.authorityapprovedsitesurvey;
+            document.getElementById('authorityapprovedsitesurveyempid').value = item.authorityapprovedsitesurveyempid;
+            
+            document.getElementById('nameofagency').value = item.nameofagency;
+            document.getElementById('nameofwork').value = item.nameofwork;
+            
+            document.getElementById('workorderoragreementnumber').value = item.workorderoragreementnumber;
+            document.getElementById('workorderortenderamount').value = item.workorderortenderamount;
+
+            document.getElementById('sitesurveyreportsubmittedbyagency').value =item.sitesurveyreportsubmittedbyagency;
+
+            var sdate = item.stipulateddateofcompletion.substring(0,10);
+            document.getElementById('stipulateddateofcompletion').value = sdate;  //item.stipulateddateofcompletion;
+            var adate =item.actualdateofcompletion.substring(0,10);
+            document.getElementById('actualdateofcompletion').value =adate;  //item.actualdateofcompletion;
+
+            });
+           
+          });
+       }
+    });
+ }
+
+ function onlyNumberKey(evt) {
+          // Only ASCII character in that range allowed
+          var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+          if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+              return false;
+          return true;
+      }
+
+function IsAlphaNumeric(e) {
+         var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+         var ret = ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || keyCode == 32 || (keyCode >= 97 && keyCode <= 122) || (specialKeys.indexOf(e.keyCode) != -1 && e.charCode != e.keyCode));
+         //document.getElementById("error").style.display = ret ? "none" : "inline";
+         return ret;
+     }    
+
+</script>
+
+
+
+{% endblock %}

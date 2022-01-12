@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+{% from "_render_field.html" import render_field %}
+
+{% block content %}
+
+<div class="container p-3 my-3 border bg-light">
+    <div class="row">
+      <div class="col-md-12">
+       <!-- <p><h4 class="display-6 text-primary">WLCM -  Site Survey Data Migration Form</h4></p> -->
+
+        <form method="POST"  action="{{ url_for('index')}}">
+          <div class="row">
+            {{ form.csrf_token }}
+            {{ form.hidden_tag() }}
+           <div class="col">
+      
+          {{ render_field(form.projectid )}}
+          {{ render_field(form.responsiblerole )}}
+          {{ render_field(form.authoritysubmittedestimate )}}
+          {{ render_field(form.authoritysubmittedestimateempid,title="Upto Eight Digit Number" )}}
+
+          {{ render_field(form.estimatetype)}}
+          {{ render_field(form.peamount,title="Upto Eight Digit Number",onkeypress="return onlyNumberKey(event)",maxlength="8" )}}
+          {{ render_field(form.pecivilamount,title="Upto Eight Digit Number",onkeypress="return onlyNumberKey(event)",maxlength="8" )}}
+          {{ render_field(form.peelectamount,title="Upto Eight Digit Number",onkeypress="return onlyNumberKey(event)",maxlength="8" )}}
+          {{ render_field(form.pehortamount,title="Upto Eight Digit Number",onkeypress="return onlyNumberKey(event)",maxlength="8" )}}
+
+          <div class="row">
+            <div class="col">
+              {{ render_field(form.stipulatedcompletiondate)}}
+            </div>
+            <div class="col">
+              {{ render_field(form.completiondate)}} 
+            </div>
+          </div>  
+          </div>
+          <div class="col">
+          {{ render_field(form.pecivilauthority )}}
+          {{ render_field(form.pecivilauthorityempid,title="Upto Eight Digit Number" )}}
+          {{ render_field(form.peelectauthority )}}
+          {{ render_field(form.peelectauthorityempid,title="Upto Eight Digit Number" )}}
+          {{ render_field(form.pehortauthority )}}
+          {{ render_field(form.pehortauthorityempid,title="Upto Eight Digit Number" )}}
+          
+          {{ render_field(form.pecivilactdate )}}
+          {{ render_field(form.peelectactdate )}}
+          {{ render_field(form.pehortactdate )}}
+          {{ render_field(form.peremarks )}}
+        </div>
+        </div> 
+
+              
+         <hr>   
+          <input type="submit" class="btn btn-primary" value="Submit">
+          <a type="button"  class="btn btn-outline-secondary  float-right" href="{{ url_for('main')}}" > << Back to Main </a>
+
+          
+      </form>
+
+      </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+function onlyNumberKey(evt) {
+          // Only ASCII character in that range allowed
+          var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+          if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+              return false;
+          return true;
+      }
+
+function IsAlphaNumeric(e) {
+         var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+         var ret = ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || keyCode == 32 || (keyCode >= 97 && keyCode <= 122) || (specialKeys.indexOf(e.keyCode) != -1 && e.charCode != e.keyCode));
+         //document.getElementById("error").style.display = ret ? "none" : "inline";
+         return ret;
+     }    
+
+</script>
+
+
+
+{% endblock %}

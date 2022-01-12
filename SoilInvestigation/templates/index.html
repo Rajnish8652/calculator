@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+{% from "_render_field.html" import render_field %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <form method="POST"  action="{{ url_for('index')}}" enctype="multipart/form-data">
+          <div class="row">
+          {{ form.csrf_token }}
+          {{ form.hidden_tag() }}
+          <div class="col">
+          {{ render_field(form.projectid )}}
+          {{ render_field(form.responsiblerole )}}
+          {{ render_field(form.authorityapprovedsoilinvestigation )}}
+          {{ render_field(form.authorityapprovedsoilinvestigationempid)}}
+          {{ render_field(form.nameofagency )}}
+          {{ render_field(form.nameofwork )}}
+          {{ render_field(form.workorderoragreementnumber,title="Upto Eight Digit Number",pattern="\d{1,8}" )}}
+          {{ render_field(form.filenumber )}}
+          {{ render_field(form.workorderortenderamount,title="Upto Eight Digit Number",pattern="\d{1,8}")}}
+              
+        </div>  
+        <div class="col"> 
+          <div class="row">
+            <div class="col"> 
+              {{ render_field(form.stipulateddateofcompletion )}}
+            </div>
+            <div class="col">
+              {{ render_field(form.actualdateofcompletion )}}
+            </div>
+        </div>
+          {{ render_field(form.sitesurveyplansubmittedbyagency )}}
+          {{ render_field(form.typeoftest )}}
+          {{ render_field(form.typeofsoil )}}
+
+          {{ render_field(form.typeoffoundationrecommended )}}
+          {{ render_field(form.sptvalues )}}
+          {{ render_field(form.specificgravityofsoil )}}
+          {{ render_field(form.watertable )}}
+          {{ render_field(form.soilbearingcapacity )}}
+        </div>
+        </div>
+          
+         <hr>   
+         <div class="form-group">
+          <div class="col col-lg-offset-2">
+              <input type="submit" class="btn btn-primary" value="Submit">
+              <a type="button"  class="btn btn-outline-secondary  float-right" href="{{ url_for('main')}}" > << Back to Main </a>
+          </div>
+        </div>
+      </form>
+
+      </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+/*
+let projectid_text = document.getElementById('projectid');
+projectid_text.onblur = function() {
+  //location.href = url_for('getdata', {pid:"10001"});
+  alert('start');
+  $.ajax({
+  url: url_for('getdata',{pid:"10001"}),
+  method: "GET",
+  success: call_back()
+});
+}
+
+$(document).ready(function(){
+  projectid_text.onblur = function() {
+    alert('aada');
+    //projectid_text.attr("href","https://en.wikipedia.org/wiki/Flower");  
+    //$("click_href").attr("href", "https://en.wikipedia.org/wiki/Flower");
+     $('#projectid_text').attr=url_for('getdata',pid=projectid_text.value);
+       //alert(data);         
+    }   
+//});
+  }
+});
+*/
+
+let projectid_text = document.getElementById('projectid');
+projectid_text.onblur = function() {
+  let pno = projectid_text.value;
+  fetch('getdatabyid/' + pno).then(function(response){
+      if (response.ok){
+          response.json().then(function(result) {
+
+            result.forEach((item) => { // alert(item.length);
+
+            document.getElementById('responsiblerole').value=item.responsiblerole;
+            document.getElementById('authorityapprovedsoilinvestigation').value = item.authorityapprovedsoilinvestigation;
+            document.getElementById('authorityapprovedsoilinvestigationempid').value = item.authorityapprovedsoilinvestigationempid;
+            document.getElementById('nameofagency').value = item.nameofagency;
+            document.getElementById('nameofwork').value = item.nameofwork;
+            document.getElementById('workorderoragreementnumber').value = item.workorderoragreementnumber;
+
+            document.getElementById('filenumber').value=item.filenumber;
+            document.getElementById('workorderortenderamount').value = item.workorderortenderamount;
+            var sdate = item.stipulateddateofcompletion.substring(0,10);
+            document.getElementById('stipulateddateofcompletion').value = sdate;  //item.stipulateddateofcompletion;
+            var adate =item.actualdateofcompletion.substring(0,10);
+            document.getElementById('actualdateofcompletion').value =adate;  //item.actualdateofcompletion;
+            document.getElementById('sitesurveyplansubmittedbyagency').value =item.sitesurveyplansubmittedbyagency;
+            document.getElementById('typeoftest').value = item.typeoftest;
+
+            document.getElementById('typeofsoil').value=item.typeofsoil;
+            document.getElementById('typeoffoundationrecommended').value = item.typeoffoundationrecommended;
+            document.getElementById('sptvalues').value = item.sptvalues;
+            document.getElementById('specificgravityofsoil').value = item.specificgravityofsoil;
+            document.getElementById('watertable').value = item.watertable;
+            document.getElementById('soilbearingcapacity').value = item.soilbearingcapacity;
+            });
+           
+          });
+       }
+    });
+ }
+
+
+</script>
+
+
+
+{% endblock %}

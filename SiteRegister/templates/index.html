@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+{% from "_render_field.html" import render_field %}
+
+{% block content %}
+
+<div class="container p-3 my-3 border bg-light ">
+    <div class="row">
+      <div class="col">
+       <!-- <p><h4 class="display-6 text-primary">WLCM -  Site Survey Data Migration Form</h4></p> -->
+
+        <form method="POST"  action="{{ url_for('index')}}">
+            <div class="row">
+                {{ form.csrf_token }}
+                {{ form.hidden_tag() }}
+                <div class="col">
+                    {{ render_field(form.client,title="Enter Numberic Value",onkeypress="return onlyNumberKey(event)",maxlength="3")}}
+                    {{ render_field(form.materialdocument,title="Enter Numberic Value",onkeypress="return onlyNumberKey(event)",maxlength="10")}}
+                    {{ render_field(form.materialdocyear)}}
+                    {{ render_field(form.materialdocitem,title="Enter Numberic Valuer",onkeypress="return onlyNumberKey(event)",maxlength="4")}}
+                    {{ render_field(form.movementtype,maxlength="3")}}
+                    {{ render_field(form.material,maxlength="18")}}
+                    {{ render_field(form.plant,maxlength="4")}}
+                    {{ render_field(form.storagelocation,maxlength="4")}}
+                    {{ render_field(form.batch,title="Enter Numberic Value",onkeypress="return onlyNumberKey(event)",maxlength="10")}}
+                    {{ render_field(form.specialstock,maxlength="2")}}
+                    {{ render_field(form.supplier,title="Enter Numberic Value",onkeypress="return onlyNumberKey(event)",maxlength="10")}}
+                    {{ render_field(form.baseunitofmeasure,maxlength="3")}}
+                    {{ render_field(form.storagelocation1,maxlength="4")}}
+                    {{ render_field(form.dateofexp)}}
+
+                </div>
+                <div class="col">
+                    {{ render_field(form.qtyinunitofentry,maxlength="10")}}
+                    {{ render_field(form.text,maxlength="20")}}
+                    {{ render_field(form.goodsrecipient)}}
+                    {{ render_field(form.postingdate)}}
+                    {{ render_field(form.entrydate)}}
+                    {{ render_field(form.projectsid,maxlength="15")}}
+                    {{ render_field(form.projectsname,maxlength="20")}}
+                    {{ render_field(form.wbsid,maxlength="15")}}
+                    {{ render_field(form.wbsdescription,maxlength="20")}}
+                    {{ render_field(form.plant1,maxlength="4")}}
+                    {{ render_field(form.matarial1,maxlength="18")}}
+                    {{ render_field(form.batch1)}}
+                    {{ render_field(form.dateofexp1)}}
+                    {{ render_field(form.supplier1)}}
+
+                </div>
+            </div>
+        <hr>
+          <div class="form-group">
+            <div class="col col-lg-offset-2">
+                <input type="submit" class="btn btn-primary" value="Submit">
+                <a type="button"  class="btn btn-outline-secondary  float-right" href="{{ url_for('main')}}" > << Back to Main </a>
+            </div>
+          </div>
+          
+      </form>
+
+      </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+function onlyNumberKey(evt) {
+          // Only ASCII character in that range allowed
+          var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+          if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+              return false;
+          return true;
+      }
+
+function IsAlphaNumeric(e) {
+         var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+         var ret = ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || keyCode == 32 || (keyCode >= 97 && keyCode <= 122) || (specialKeys.indexOf(e.keyCode) != -1 && e.charCode != e.keyCode));
+         //document.getElementById("error").style.display = ret ? "none" : "inline";
+         return ret;
+     }    
+
+//document.teenageMutant.ninjaTurtles[1].checked=true;
+//alert(document.teenageMutant.ninjaTurtles[0].checked);
+
+</script>
+
+{% endblock %}
